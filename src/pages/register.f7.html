@@ -1,0 +1,133 @@
+<template>
+    <div class="login-screen modal-in" id="my-register-screen">
+        <div class="view">
+            <div class="page login-register-border" data-name="register"  style="border-style: solid;border-color: lightgrey;border-width: 2px;">
+                <div class="register-title login-title-color">EK maps</div>
+                <div class="page-content login-screen-content">
+                    <div class="login-screen-title login-title-color">Register</div>
+                    <div class="list">
+                        <ul>
+                            <li class="item-content item-input item-input-outline item-input-with-info">
+                                <div class="item-inner">
+                                    <div class="item-title item-floating-label">First name</div>
+                                    <div class="item-input-wrap">
+                                        <input type="text" name="firstname" placeholder="Your first name"
+                                            value="${firstname}" @input="${updateFirstname}" required validate />
+                                        <span class="input-clear-button"></span>
+                                        <div class="item-input-info">First name is required</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="item-content item-input item-input-outline item-input-with-info">
+                                <div class="item-inner">
+                                    <div class="item-title item-floating-label">Last name</div>
+                                    <div class="item-input-wrap">
+                                        <input type="text" name="lastname" placeholder="Your last name"
+                                            value="${lastname}" @input="${updateLastname}" required validate />
+                                        <span class="input-clear-button"></span>
+                                        <div class="item-input-info">Last name is required</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="item-content item-input item-input-outline item-input-with-info">
+                                <div class="item-inner">
+                                    <div class="item-title item-floating-label">Username</div>
+                                    <div class="item-input-wrap">
+                                        <input type="text" name="username" placeholder="Your password"
+                                            value="${username}" @input="${updateUsername}" required validate />
+                                        <span class="input-clear-button"></span>
+                                        <div class="item-input-info">Username is required</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="item-content item-input item-input-outline item-input-with-info">
+                                <div class="item-inner">
+                                    <div class="item-title item-floating-label">Email</div>
+                                    <div class="item-input-wrap">
+                                        <input type="text" name="email" placeholder="Your email" value="${email}"
+                                            @input="${updateEmail}" required validate />
+                                        <span class="input-clear-button"></span>
+                                        <div class="item-input-info">Email is required</div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="item-content item-input item-input-outline item-input-with-info">
+                                <div class="item-inner">
+                                    <div class="item-title item-floating-label">Password</div>
+                                    <div class="item-input-wrap">
+                                        <input type="password" name="password" placeholder="Your password"
+                                            value="${password}" @input="${updatePassword}" required validate />
+                                        <span class="input-clear-button"></span>
+                                        <div class="item-input-info">Password is required</div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="list">
+                        <ul>
+                            <li>
+                                <div class="block segmented login-button-color">
+                                    <a class="back item-link button button-preloader button-fill login-screen-open"
+                                    data-login-screen="#my-login-screen">Register</a>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="block-footer">Already have an account?<br />
+                            <a class="link back" data-login-screen="#my-login-screen">Log in </a> here!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+    export default (props, { $f7, $update }) => {
+        // Login screen demo data
+        let firstname = '';
+        let lastname = '';
+        let username = '';
+        let email = '';
+        let password = '';
+
+        const updateFirstname = (e) => {
+            firstname = e.target.value;
+            $update();
+        }
+        const updateLastname = (e) => {
+            lastname = e.target.value;
+            $update();
+        }
+        const updateUsername = (e) => {
+            username = e.target.value;
+            $update();
+        }
+        const updateEmail = (e) => {
+            email = e.target.value;
+            $update();
+        }
+        const updatePassword = (e) => {
+            password = e.target.value;
+            $update();
+        }
+        const alertLoginData = () => {
+            $.ajax({
+                type: "POST",
+                url: "http://192.168.99.66:8081",
+                crossDomain: true,
+                dataType: "jsonp",
+                data: username,
+                success: function (msg) {
+                    alert(msg);
+                    $f7.loginScreen.close();
+                }
+            });
+        }
+        const closeThis = () => {
+            $f7.registerScreen.close();
+        }
+
+        return $render;
+    }
+</script>

@@ -1,0 +1,76 @@
+<template>
+    <div class="page" data-name="settings">
+        <div class="navbar">
+            <div class="navbar-bg"></div>
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="icon icon-back"></i>
+                        <span class="if-not-md">Back</span>
+                    </a>
+                </div>
+                <div class="title">Settings</div>
+            </div>
+        </div>
+
+        <div class="page-content">
+            <div class="list inset">
+                <ul>
+                    <li>
+                        <div class="item-content item-input item-input-outline">
+                            <div class="item-inner">
+                                <div class="item-title item-label">Your first name</div>
+                                <div class="item-input-wrap">
+                                    <input type="text" disabled id="firstName" placeholder="${firstName}" />
+                                    <span class="input-clear-button"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content item-input item-input-outline">
+                            <div class="item-inner">
+                                <div class="item-title item-label">Your last name</div>
+                                <div class="item-input-wrap">
+                                    <input type="text" disabled id="lastName" placeholder="${lastName}" />
+                                    <span class="input-clear-button"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div id="notificationsTitle" class="item-title">Notifications are <b
+                                        style="color:red;">OFF</b></div>
+                                <div class="item-after">
+                                    <label class="toggle toggle-init color-blue">
+                                        <input type="checkbox" unchecked/ id="notifications">
+                                        <span class="toggle-icon"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-footer">
+                            <p>Turn chat notifications on/off.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+    var firstName = "evald";
+    var lastName = "vrbancic";
+    export default (props, { $f7, $, $on, $$ }) => {
+
+
+
+        $('#notifications').on('change', function () {
+            alert("Hooray");
+        });
+
+        return $render;
+    }
+</script>

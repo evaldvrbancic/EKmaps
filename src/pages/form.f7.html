@@ -1,0 +1,227 @@
+<template>
+  <div class="page" data-name="form">
+    <div class="navbar">
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="if-not-md">Back</span>
+          </a>
+        </div>
+        <div class="title">Create marker</div>
+      </div>
+    </div>
+    <div class="page-content">
+      <div class="map-wrapper">
+        <div id="mapForm" class="map"></div>
+      </div>
+
+
+
+
+      <script>
+        var markerLocation = userLonLat;
+
+        var pointsForm = [],
+          url_osrm_nearest = '//router.project-osrm.org/nearest/v1/driving/',
+          icon_url = 'https://i.imgur.com/IJk2Rj3.png',
+          vectorSource = new ol.source.Vector(),
+          vectorLayer = new ol.layer.Vector({
+            source: vectorSource
+          }),
+          vectorUserLocationSource = new ol.source.Vector(),
+          vectorUserLocationLayer = new ol.layer.Vector({
+            source: vectorUserLocationSource
+          }),
+          styles = {
+            route: new ol.style.Style({
+              stroke: new ol.style.Stroke({
+                width: 6, color: [40, 40, 40, 0.8]
+              })
+            }),
+            icon: new ol.style.Style({
+              image: new ol.style.Icon({
+                anchor: [0.5, 1],
+                src: icon_url,
+                scale: 0.08
+              })
+            })
+          };
+
+        console.clear();
+
+        var mapForm = new ol.Map({
+          target: 'mapForm',
+          interactions: ol.interaction.defaults({
+            doubleClickZoom: false,
+            dragAndDrop: false,
+            dragPan: false,
+            keyboardPan: false,
+            keyboardZoom: false,
+            mouseWheelZoom: false,
+            pointer: false,
+            select: false
+          }),
+          controls: ol.control.defaults({
+            attribution: false,
+            zoom: false,
+          }),
+          layers: [
+            new ol.layer.Tile({
+              source: new ol.source.OSM()
+            }),
+            vectorLayer,
+            vectorUserLocationLayer
+          ],
+          view: new ol.View({
+            center: ol.proj.fromLonLat([userLonLat[0], userLonLat[1]]),
+            zoom: 14
+          })
+        });
+
+        mapForm.on('click', function (evt2) {
+          vectorLayer.getSource().clear();
+          markerLocation = utils.to4326(evt2.coordinate);
+          utilsForm.createFeature(utils.to4326(evt2.coordinate));
+        });
+
+        var utilsForm = {
+          getNearest: function (coord) {
+            var coord4326 = utils.to4326(coord);
+            return new Promise(function (resolve, reject) {
+              //make sure the coord is on street
+              fetch(url_osrm_nearest + coord4326.join()).then(function (response) {
+                // Convert to JSON
+                return response.json();
+              }).then(function (json) {
+                if (json.code === 'Ok') resolve(json.waypoints[0].location);
+                else reject();
+              });
+            });
+          },
+          showLocation: function (coord) {
+            var feature = new ol.Feature({
+              type: 'place',
+              geometry: new ol.geom.Point(ol.proj.fromLonLat(coord))
+            });
+            vectorUserLocationSource.addFeature(feature);
+          },
+          createFeature: function (coord) {
+            var feature = new ol.Feature({
+              type: 'place',
+              geometry: new ol.geom.Point(ol.proj.fromLonLat(coord))
+            });
+            feature.setStyle(styles.icon);
+            vectorSource.addFeature(feature);
+          },
+          to4326: function (coord) {
+            return ol.proj.transform([
+              parseFloat(coord[0]), parseFloat(coord[1])
+            ], 'EPSG:3857', 'EPSG:4326');
+          }
+        };
+
+        utilsForm.showLocation(userLonLat);
+      </script>
+
+
+
+
+      <div class="list no-hairlines-md">
+        <ul>
+          <li>
+            <div class="item-content item-input  item-input-outline item-input-with-info">
+              <div class="item-inner">
+                <div class="item-title item-label">Marker name</div>
+                <div class="item-input-wrap">
+                  <input required validate id="markerName" type="text" placeholder="Marker name" />
+                  <span class="input-clear-button"></span>
+                  <div class="item-input-info">Name is required</div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="item-content item-input  item-input-outline item-input-with-info">
+              <div class="item-inner">
+                <div class="item-title item-label">Marker description</div>
+                <div class="item-input-wrap">
+                  <textarea id="markerDescription" placeholder="Marker Description" required validate></textarea>
+                  <div class="item-input-info">Description is required</div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="block-title">Select marker icon</div>
+      <div class="list no-hairlines">
+        <ul>
+          <li>
+            <label class="item-radio item-content">
+              <input type="radio" name="radio" value="first" checked="checked" />
+              <i class="icon icon-radio"></i>
+              <div class="item-inner">
+                <img data-src="https://i.imgur.com/CEOIJvx.png" width="35" class="lazy lazy-fade-in demo-lazy" />
+              </div>
+            </label>
+          </li>
+          <li>
+            <label class="item-radio item-content">
+              <input type="radio" name="radio" value="second" />
+              <i class="icon icon-radio"></i>
+              <div class="item-inner">
+                <img data-src="https://i.imgur.com/F4jjvFQ.png" width="35" class="lazy lazy-fade-in demo-lazy" />
+              </div>
+            </label>
+          </li>
+          <li>
+            <label class="item-radio item-content">
+              <input type="radio" name="radio" value="third" />
+              <i class="icon icon-radio"></i>
+              <div class="item-inner">
+                <img data-src="https://i.imgur.com/ryQI5Eq.png" width="35" class="lazy lazy-fade-in demo-lazy" />
+              </div>
+            </label>
+          </li>
+          <li>
+            <label class="item-radio item-content">
+              <input type="radio" name="radio" value="fourth" />
+              <i class="icon icon-radio"></i>
+              <div class="item-inner">
+                <img data-src="https://i.imgur.com/dHPAVko.png" width="35" class="lazy lazy-fade-in demo-lazy" />
+              </div>
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="block segmented login-button-color">
+        <a href="#" id="create" @click=${createMarker}
+          class="back item-link button button-preloader button-fill">Create</a>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+  export default function (props, { $f7, $on, $onBeforeMount, $onMounted, $onBeforeUnmount, $onUnmounted }) {
+
+    const createMarker = () => {
+      var marker = JSON.stringify({
+        name: document.getElementById("markerName").value,
+        description: document.getElementById("markerDescription").value,
+        option: document.querySelector('input[name="radio"]:checked').value,
+        location: markerLocation
+      });
+
+      $f7.request.post('http://192.168.1.66:8081/marker', { marker })
+        .then(function (res) {
+          console.log('Load was performed');
+        });
+    }
+
+    return $render;
+  }
+</script>

@@ -1,0 +1,52 @@
+<template>
+  <div class="page" data-name="about">
+    <div class="navbar">
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="if-not-md">Back</span>
+          </a>
+        </div>
+        <div class="title">Information</div>
+      </div>
+    </div>
+    <div class="page-content">
+
+      <div class="list simple-list no-hairlines">
+        <ul>
+          <div class=" weather-title">Weather</div>
+          <div class="weatherList" id="weatherIcon" style="height:100px;"></div>
+          <div class="weatherList" id="weather"></div>
+          <div class="weatherList" id="weatherDescription"></div>
+          <div class="weatherList" id="weatherTemp"></div>
+          <div class="weatherList" id="weatherHumidity"></div>
+          <div class="weatherList" id="weatherWind"></div>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</template>
+<script>
+  export default function (props, { $f7, $on, $onBeforeMount, $onMounted, $onBeforeUnmount, $onUnmounted }) {
+    var location = "ptuj";
+
+    var weather;
+    $on('pageInit', (e, page) => {
+      $f7.request.get("https://api.openweathermap.org/data/2.5/weather?q=" + location + 
+      "&appid=6e2471f54d6673b367e814bbd0f5c954&units=metric").then((res) => {
+        weather = JSON.parse(res.data);
+        document.getElementById("weatherIcon").innerHTML = "<img class='weather-icon' width='100px' src='https://openweathermap.org/img/w/" + weather.weather[0].icon + ".png'/>";
+        document.getElementById("weather").innerHTML = "Weather: <b>" + weather.weather[0].main + "</b>";
+        document.getElementById("weatherDescription").innerHTML = "Description: <b>" + weather.weather[0].description + "</b>";
+        document.getElementById("weatherTemp").innerHTML = "Temperature: <b>" + weather.main.temp + "°C</b>";
+        document.getElementById("weatherHumidity").innerHTML = "Humidity: <b>" + weather.main.humidity + "%</b>";
+        document.getElementById("weatherWind").innerHTML = "Wind: <b>" + weather.wind.speed + "km/h</b>";
+      });
+    });
+
+    return $render;
+  }
+</script>

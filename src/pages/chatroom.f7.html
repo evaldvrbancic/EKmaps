@@ -1,0 +1,78 @@
+<template>
+  <div class="page">
+    <div class="navbar">
+      <div class="navbar-bg"></div>
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner sliding">
+        <div class="left">
+          <a href="#" class="link back">
+            <i class="icon icon-back"></i>
+            <span class="if-not-md">Back</span>
+          </a>
+        </div>
+        <div id="title" class="title"></div>
+      </div>
+    </div>
+    <div class="toolbar messagebar">
+      <div class="toolbar-inner">
+        <div class="messagebar-area">
+          <textarea class="resizable" placeholder="Message"></textarea>
+        </div>
+        <a class="link icon only send-link" href="#">
+          <i class="icon f7-icons if-not-md">chat_bubble</i>
+          <i class="icon material-icons if-md">chat_bubble</i></a>
+      </div>
+    </div>
+
+    <div class="page-content messages-content">
+      <div id="msgs" class="messages">
+
+      </div>
+
+    </div>
+  </div>
+</template>
+<script>
+  export default (props, { $f7, $, $on, $$ }) => {
+    var userUUID = 115;
+    var friendName = "Miha";
+     
+    var employees = [
+      { "id": 200, "content": "Zdravo!", "time": "2012-04-23T10:25:43.511Z" },
+      { "id": 115, "content": "Hey!", "time": "2012-04-23T11:15:43.511Z" },
+      { "id": 200, "content": "To je sporocilo.", "time": "2012-04-23T12:05:43.511Z" },
+      { "id": 115, "content": "To je tudi sporocilo.", "time": "2012-04-23T16:85:43.511Z" },
+      { "id": 115, "content": "Test", "time": "2012-04-23T18:20:43.511Z" },
+      { "id": 115, "content": "Sporocilo", "time": "2012-04-23T18:21:43.511Z" },
+      { "id": 200, "content": "Deluje", "time": "2012-04-23T18:23:43.511Z" },
+      { "id": 115, "content": "Super", "time": "2012-04-23T18:24:43.511Z" }
+    ]
+
+    $on('pageInit', (e, page) => {
+      document.getElementById("title").innerHTML = friendName;
+      employees.forEach(element => {
+        if (element.id == userUUID) {
+          document.getElementById("msgs").innerHTML +=
+            "<div style='margin-bottom: 10px' class='message message-sent'>" +
+            "<img src='https://i.imgur.com/jkYkW4Z.png' height='40px' style='border: solid 1px lightgray; border-radius: 30px; margin-left:5px;' />" +
+            "<div class='message-content'>" +
+            "<div class='message-bubble'><div class='message-text'>" + element.content + "</div>" +
+            "</div><div class='message-footer'>" + element.time.slice(11, 16) + "</div></div></div>";
+        } else {
+          console.log(element.content);
+          document.getElementById("msgs").innerHTML +=
+            "<div style='margin-bottom: 10px' class='message message-received'>" +
+            "<img src='https://i.imgur.com/jkYkW4Z.png' height='40px' style='border: solid 1px lightgray; border-radius: 30px; margin-right:5px;' />" +
+            "<div class='message-content'>" +
+            "<div class='message-bubble'><div class='message-text'>" + element.content + "</div>" +
+            "</div><div class='message-footer'>" + element.time.slice(11, 16) + "</div></div></div>";
+        }
+      });
+    });
+
+
+    return $render;
+  }
+
+
+</script>

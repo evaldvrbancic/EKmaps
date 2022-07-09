@@ -1,0 +1,532 @@
+<template>
+  <div class="page" data-name="home">
+    <!-- Top Navbar -->
+    <div class="navbar navbar-large">
+      <div class="navbar-bg"></div>
+      <div class="navbar-inner">
+        <div class="left">
+          <a href="#" class="link icon-only panel-open" data-panel="left">
+            <i class="icon f7-icons if-not-md">menu</i>
+            <i class="icon material-icons if-md">menu</i>
+          </a>
+        </div>
+        <div class="title sliding">EK maps</div>
+        <div class="right">
+          <a href="#" class="link icon-only panel-open" data-panel="right">
+            <i class="icon f7-icons if-not-md">menu</i>
+            <i class="icon material-icons if-md">chat_bubble_2_fill</i>
+          </a>
+        </div>
+        <div class="title-large">
+          <div class="title-large-text">EK maps</div>
+        </div>
+      </div>
+    </div>
+    <!-- Toolbar-->
+    <div class="toolbar toolbar-bottom">
+      <div class="toolbar-inner">
+        <a href="#" class="link">
+          <!--Left Link-->
+        </a>
+        <a href="#" class="link">
+          <!--Right Link-->
+        </a>
+      </div>
+    </div>
+    <!-- Scrollable page content-->
+    <div class="page-content">
+      <div class="map-container">
+        <div id="map" class="map"></div>
+      </div>
+
+
+
+
+
+
+
+
+      <script type="text/javascript">
+        var mode = 1;
+        var userLonLat = new Array(2);
+        var startLocation = '';
+
+        var points = [],
+          msg_el = document.getElementById('msg'),
+          url_osrm_nearest = '//router.project-osrm.org/nearest/v1/driving/',
+          url_osrm_route = '//router.project-osrm.org/route/v1/driving/',
+          icon_url = 'https://i.imgur.com/IJk2Rj3.png',
+          vectorSource = new ol.source.Vector(),
+          vectorSource2 = new ol.source.Vector(),
+          vectorLayer = new ol.layer.Vector({
+            source: vectorSource
+          }),
+          vectorUserLocation = new ol.layer.Vector({
+            source: vectorSource2
+          }),
+          styles = {
+            route: new ol.style.Style({
+              stroke: new ol.style.Stroke({
+                width: 6, color: [40, 40, 40, 0.8]
+              })
+            }),
+            icon: new ol.style.Style({
+              image: new ol.style.Icon({
+                anchor: [0.5, 1],
+                src: icon_url,
+                scale: 0.08
+              })
+            })
+          };
+
+        console.clear();
+
+        //================NEW MAP================
+
+        var map = new ol.Map({
+          target: 'map',
+          layers: [
+            new ol.layer.Tile({
+              source: new ol.source.OSM()
+            }),
+            vectorLayer,
+            vectorUserLocation
+          ],
+          controls: ol.control.defaults({
+            attribution: false
+          }),
+          view: new ol.View({
+            center: ol.proj.fromLonLat([14.5058, 46.0569]),
+            zoom: 7
+          })
+        });
+
+        view = new ol.View({
+          center: [0, 0],
+          zoom: 2,
+          setBuiltInZoom: false
+        });
+
+        function el(id) {
+          return document.getElementById(id);
+        }
+
+        //================CREATE WAYPOINT================
+
+        /*map.on('click', function (evt) {
+          if (mode == 0) {
+            if (points.length == 1) {
+              utils.getNearest(evt.coordinate).then(function (coord_street) {
+                var last_point = points[points.length - 1];
+                var points_length = points.push(coord_street);
+                vectorLayer.getSource().clear();
+                utils.createFeature(last_point);
+                utils.createFeature(coord_street);
+
+                var point1 = last_point.join();
+                var point2 = coord_street.join();
+
+                fetch(url_osrm_route + point1 + ';' + point2).then(function (r) {
+                  return r.json();
+                }).then(function (json) {
+                  if (json.code !== 'Ok') {
+                    return;
+                  }
+                  points.length = 0;
+                  utils.createRoute(json.routes[0].geometry);
+                });
+              });
+            } else {
+              utils.getNearest(evt.coordinate).then(function (coord_street) {
+                vectorLayer.getSource().clear();
+                utils.createFeature(coord_street);
+                points.push(coord_street)
+              });
+            }
+          }
+          if (mode == 1) {
+            utils.getNearest(evt.coordinate).then(function (coord_street) {
+              vectorLayer.getSource().clear();
+              utils.createFeature(coord_street);
+
+              var point1 = userLonLat.join();
+              var point2 = coord_street.join();
+
+              fetch(url_osrm_route + point1 + ';' + point2).then(function (r) {
+                return r.json();
+              }).then(function (json) {
+                if (json.code !== 'Ok') {
+                  return;
+                }
+                points.length = 0;
+                utils.createRoute(json.routes[0].geometry);
+              });
+            });
+          }
+        });*/
+
+        //================UTILITIES================
+
+        var utils = {
+          getNearest: function (coord) {
+            /*return new Promise(function (resolve) {
+              fetch(url_osrm_nearest + coord.join()).then(function (response) {
+                console.log("response = " + response);
+                var test = response.json();
+                //console.log("response.json = " + response.json());
+                //console.log("response parse = " + JSON.parse(response));
+                //console.log("response waypoints = " + test.waypoints[0].location);
+                //console.log("response resolve = " + resolve(test.waypoints[0].location));
+                resolve(test.waypoints[0].location);
+              })
+            });*/
+
+
+            try {
+              alert("utils");
+              //var coord4326 = utils.to4326(coord);
+
+              return new Promise(function (resolve, reject) {
+                fetch(url_osrm_nearest + coord.join()).then(function (response) {
+                  return response.json();
+                }).then(function (json) {
+                  if (json.code === 'Ok') {
+                    resolve(json.waypoints[0].location);
+                  }
+                  else {
+                    reject();
+                  }
+                });
+              });
+
+            } catch (error) {
+              alert(error);
+            }
+          },
+          createFeature: function (coord) {
+            var feature = new ol.Feature({
+              type: 'place',
+              geometry: new ol.geom.Point(ol.proj.fromLonLat(coord))
+            });
+            feature.setStyle(styles.icon);
+            vectorSource.addFeature(feature);
+          },
+          showLocation: function (coord) {
+            var feature = new ol.Feature({
+              type: 'place',
+              geometry: new ol.geom.Point(ol.proj.fromLonLat(coord))
+            });
+            vectorSource2.addFeature(feature);
+          },
+          createRoute: function (polyline) {
+            // route is ol.geom.LineString
+            var route = new ol.format.Polyline({
+              factor: 1e5
+            }).readGeometry(polyline, {
+              dataProjection: 'EPSG:4326',
+              featureProjection: 'EPSG:3857'
+            });
+            var feature = new ol.Feature({
+              type: 'route',
+              geometry: route
+            });
+            feature.setStyle(styles.route);
+            vectorSource.addFeature(feature);
+          },
+          to4326: function (coord) {
+            return ol.proj.transform([
+              parseFloat(coord[0]), parseFloat(coord[1])
+            ], 'EPSG:3857', 'EPSG:4326');
+          }
+        };
+
+        //================USE LOCATION CHECKBOX================
+
+        var checkbox = document.querySelector("input[id=useLocation]");
+        checkbox.addEventListener('change', function () {
+          if (this.checked) {
+            mode = 1;
+            $('#startLoc').addClass('disabled');
+            new Geolocation().showPosition()
+          } else {
+            mode = 0;
+            $('#startLoc').removeClass('disabled');
+            vectorUserLocation.getSource().clear();
+          }
+          points = [];
+          vectorLayer.getSource().clear();
+        });
+
+        function turnOnLocation() {
+          mode = 1;
+          $('#startLoc').addClass('disabled');
+          new Geolocation().showPosition()
+          checkbox.checked = true;
+        }
+
+        //================TRACKING================
+
+        class Geolocation {
+          successCallback(position) {
+            userLonLat[0] = position.coords.longitude;
+            userLonLat[1] = position.coords.latitude;
+            utils.showLocation(userLonLat);
+          }
+          errorCallback(error) {
+            if (error.code == 1) {
+              alert("You have not given permission to access your location.")
+            } else if (error.code == 2) {
+              alert(result.innerText = "Your location is unavailable.")
+            } else if (error.code == 3) {
+              alert(result.innerText = "The request to get your location timed out.")
+            } else {
+              alert(result.innerText = "An unknown error occurred.")
+            }
+          }
+          showPosition() {
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(
+                this.successCallback,
+                this.errorCallback
+              )
+            } else {
+              alert('Your browser does not support geolocation')
+            }
+          }
+        }
+
+        turnOnLocation();
+
+
+
+
+
+
+
+        var checkbox = document.querySelector("a[id=search]");
+        checkbox.addEventListener('click', function () {
+
+        });
+
+
+
+
+
+      </script>
+
+
+
+
+
+      <div class="list no-hairlines">
+        <ul>
+          <li>
+            <div class="item-inner item-cell">
+              <div class="item-row">
+                <div class="item-cell">
+                  <div class="item-content item-input item-input-outline">
+                    <div class="item-inner">
+                      <div class="item-title item-floating-label">Starting location</div>
+                      <div id="startLoc" class="item-input-wrap">
+                        <input type="text" id="startLocation" placeholder="Starting location" />
+                        <span class="input-clear-button"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="item-cell" style="width: 20%;">
+                  <label class="toggle toggle-init color-blue">
+                    <input type="checkbox" id="useLocation" />
+                    <span class="toggle-icon"></span>
+                  </label>
+                </div>
+              </div>
+              <div class="item-row">
+                <div class="item-cell">
+                  <div class="item-content item-input item-input-outline">
+                    <div class="item-inner">
+                      <div class="item-title item-floating-label">Destination</div>
+                      <div class="item-input-wrap">
+                        <input type="text" id="destination" placeholder="Destination" />
+                        <span class="input-clear-button"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="block segmented login-button-color">
+                <a href="#" id="search" @click=${findPath}
+                  class=" item-link button button-preloader button-fill">Search</a>
+              </div>
+              <div class="block segmented login-button-color">
+                <a href="/form/" id="createMarker" class="button button-raised button-fill login-screen-open">Create
+                  marker</a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+
+
+
+
+      <!--<div class="block-title">Navigation</div>
+      <div class="list">
+        <ul>
+          <li>
+            <a href="/about/" class="item-content item-link">
+              <div class="item-inner">
+                <div class="item-title">
+                  Information
+                </div>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="/form/" id="createMarker" class="item-content item-link">
+              <div class="item-inner">
+                <div class="item-title">
+                  Create marker
+                </div>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="block-title">Modals</div>
+      <div class="block block-strong">
+        <div class="row">
+          <div class="col-50">
+            <a href="#" class="button button-raised button-fill popup-open" data-popup="#my-popup">Popup</a>
+          </div>
+          <div class="col-50">
+            <a href="#" class="button button-raised button-fill login-screen-open"
+              data-login-screen="#my-login-screen">Login Screen</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-title">Panels</div>
+      <div class="block block-strong">
+        <div class="row">
+          <div class="col-50">
+            <a href="#" class="button button-raised button-fill panel-open" data-panel="left">Left Panel</a>
+          </div>
+          <div class="col-50">
+            <a href="#" class="button button-raised button-fill panel-open" data-panel="right">Right Panel</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="list links-list">
+        <ul>
+          <li>
+            <a href="/dynamic-route/blog/45/post/125/?foo=bar#about">Dynamic (Component) Route</a>
+          </li>
+          <li>
+            <a href="/load-something-that-doesnt-exist/">Default Route (404)</a>
+          </li>
+          <li>
+            <a href="/request-and-load/user/123456/">Request Data & Load</a>
+          </li>
+        </ul>
+      </div>-->
+    </div>
+  </div>
+</template>
+
+<script>
+  export default function (props, { $f7, $on, $onBeforeMount, $onMounted, $onBeforeUnmount, $onUnmounted }) {
+    // Component Data
+    let name = 'Jimmy';
+    let age = 25;
+    let likes = ['Tennis', 'Chess', 'Football'];
+
+    // Component Methods
+    const findPath = () => {
+      if (document.getElementById("useLocation").checked == true) {
+        $f7.request.get('https://nominatim.openstreetmap.org/search.php?q=' + 
+        document.getElementById("destination").value + '&format=json')
+          .then(function (res) {
+            var data = JSON.parse(res.data)[0];
+            var location = new Array(2);
+            location[0] = data.lon;
+            location[1] = data.lat;
+            utils.getNearest(location).then(function (coord_street) {
+              alert("search");
+              vectorLayer.getSource().clear();
+              utils.createFeature(coord_street);
+              console.log(coord_street);
+              var point1 = userLonLat.join();
+              var point2 = coord_street.join();
+              fetch(url_osrm_route + point1 + ';' + point2)
+                .then(function (r) {
+                  return r.json();
+                })
+                .then(function (json) {
+                  if (json.code !== 'Ok') {
+                    return;
+                  }
+                  utils.createRoute(json.routes[0].geometry);
+                });
+            });
+          }).catch(function (err) {
+            console.log(err.xhr)
+            console.log(err.status)
+            console.log(err.message)
+          })
+      } else {
+        var location1 = new Array(2);
+        var location2 = new Array(2);
+        $f7.request.get('https://nominatim.openstreetmap.org/search.php?q=' + document.getElementById("startLocation").value + '&format=json')
+          .then(function (res) {
+            var data1 = JSON.parse(res.data)[0];
+            location1[0] = data1.lon;
+            location1[1] = data1.lat;
+            $f7.request.get('https://nominatim.openstreetmap.org/search.php?q=' + document.getElementById("destination").value + '&format=json')
+              .then(function (res) {
+                var data2 = JSON.parse(res.data)[0];
+                location2[0] = data2.lon;
+                location2[1] = data2.lat;
+
+                utils.getNearest(location1).then(function (coord_street1) {
+                  utils.getNearest(location2).then(function (coord_street2) {
+                    vectorLayer.getSource().clear();
+                    utils.createFeature(coord_street1);
+                    utils.createFeature(coord_street2);
+
+                    var point1 = coord_street1.join();
+                    var point2 = coord_street2.join();
+                    fetch(url_osrm_route + point1 + ';' + point2)
+                      .then(function (r) {
+                        return r.json();
+                      })
+                      .then(function (json) {
+                        if (json.code !== 'Ok') {
+                          return;
+                        }
+                        utils.createRoute(json.routes[0].geometry);
+                      });
+                  })
+                })
+
+
+              }).catch(function (err) {
+                console.log(err.xhr)
+                console.log(err.status)
+                console.log(err.message)
+              })
+          }).catch(function (err) {
+            console.log(err.xhr)
+            console.log(err.status)
+            console.log(err.message)
+          })
+
+
+      }
+    }
+
+    return $render;
+  }
+</script>[]
