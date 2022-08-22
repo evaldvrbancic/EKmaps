@@ -1,7 +1,6 @@
 <template>
   <div class="page">
-    <div class="navbar">
-      <div class="navbar-bg"></div>
+    <div class="navbar navbar-border">
       <div class="navbar-bg"></div>
       <div class="navbar-inner sliding">
         <div class="left">
@@ -37,7 +36,7 @@
     var userUUID = 115;
     var friendName = "Miha";
      
-    var employees = [
+    var messages = [
       { "id": 200, "content": "Zdravo!", "time": "2012-04-23T10:25:43.511Z" },
       { "id": 115, "content": "Hey!", "time": "2012-04-23T11:15:43.511Z" },
       { "id": 200, "content": "To je sporocilo.", "time": "2012-04-23T12:05:43.511Z" },
@@ -50,7 +49,7 @@
 
     $on('pageInit', (e, page) => {
       document.getElementById("title").innerHTML = friendName;
-      employees.forEach(element => {
+      messages.forEach(element => {
         if (element.id == userUUID) {
           document.getElementById("msgs").innerHTML +=
             "<div style='margin-bottom: 10px' class='message message-sent'>" +
