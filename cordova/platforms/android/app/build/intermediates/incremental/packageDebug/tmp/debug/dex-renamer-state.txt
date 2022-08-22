@@ -1,0 +1,7 @@
+#Wed Aug 10 20:06:59 CEST 2022
+base.0=C\:\\Users\\Ahri\\Desktop\\EKmaps\\cordova\\platforms\\android\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\classes.dex
+path.1=classes_0.dex
+renamed.1=classes2.dex
+path.0=classes.dex
+renamed.0=classes.dex
+base.1=C\:\\Users\\Ahri\\Desktop\\EKmaps\\cordova\\platforms\\android\\app\\build\\intermediates\\dex\\debug\\mergeLibDexDebug\\classes_0.dex

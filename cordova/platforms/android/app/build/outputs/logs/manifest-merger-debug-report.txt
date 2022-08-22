@@ -1,0 +1,108 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:2:1-16:12
+INJECTED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:2:1-16:12
+INJECTED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:2:1-16:12
+INJECTED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:2:1-16:12
+MERGED from [:CordovaLib] C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\CordovaLib\build\intermediates\library_manifest\debug\AndroidManifest.xml:20:1-27:12
+INJECTED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:2:1-16:12
+INJECTED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:2:1-16:12
+INJECTED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:2:1-16:12
+	package
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:2:102-132
+		INJECTED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml
+	android:versionName
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:2:74-101
+		INJECTED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml
+	android:hardwareAccelerated
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:2:11-45
+	xmlns:android
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:2:133-191
+	android:versionCode
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:2:46-73
+		INJECTED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml
+supports-screens
+ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:3:5-191
+	android:largeScreens
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:3:49-76
+	android:smallScreens
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:3:132-159
+	android:normalScreens
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:3:77-105
+	android:xlargeScreens
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:3:160-188
+	android:resizeable
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:3:106-131
+	android:anyDensity
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:3:23-48
+uses-permission#android.permission.INTERNET
+ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:4:5-67
+	android:name
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:4:22-64
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:5:5-81
+	android:name
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:5:22-78
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:6:5-79
+	android:name
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:6:22-76
+uses-permission#android.permission.ACCESS_LOCATION_EXTRA_COMMANDS
+ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:7:5-89
+	android:name
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:7:22-86
+application
+ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:8:5-15:19
+	android:supportsRtl
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:8:121-147
+	android:label
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:8:88-120
+	android:hardwareAccelerated
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:8:18-52
+	android:icon
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:8:53-87
+activity#io.framework7.ekmaps.MainActivity
+ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:9:9-14:20
+	android:label
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:9:136-173
+	android:launchMode
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:9:174-204
+	android:windowSoftInputMode
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:9:296-338
+	android:configChanges
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:9:19-135
+	android:theme
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:9:233-295
+	android:name
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:9:205-232
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:10:13-13:29
+	android:label
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:10:28-65
+action#android.intent.action.MAIN
+ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:11:17-69
+	android:name
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:11:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:12:17-77
+	android:name
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml:12:27-74
+uses-sdk
+INJECTED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml
+MERGED from [:CordovaLib] C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\CordovaLib\build\intermediates\library_manifest\debug\AndroidManifest.xml:25:5-44
+MERGED from [:CordovaLib] C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\CordovaLib\build\intermediates\library_manifest\debug\AndroidManifest.xml:25:5-44
+INJECTED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Ahri\Desktop\EKmaps\cordova\platforms\android\app\src\main\AndroidManifest.xml
