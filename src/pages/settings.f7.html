@@ -44,10 +44,7 @@
                                 <div id="notificationsTitle" class="item-title">Notifications are <b
                                         style="color:red;">OFF</b></div>
                                 <div class="item-after">
-                                    <label class="toggle toggle-init color-blue">
-                                        <input type="checkbox" unchecked/ id="notifications">
-                                        <span class="toggle-icon"></span>
-                                    </label>
+                                    <input type="checkbox" unchecked/ id="notifications">
                                 </div>
                             </div>
                         </div>
@@ -63,13 +60,20 @@
 <script>
     var firstName = "evald";
     var lastName = "vrbancic";
+
+    function msgTest() {
+        console.log("test");
+    }
+
     export default (props, { $f7, $, $on, $$ }) => {
 
-
-
-        $('#notifications').on('change', function () {
-            alert("Hooray");
+        $('.save').on('change', function () {
+            var storedData = myApp.formStoreData('notifications', {
+                'notifyOption': $(".save").prop('checked')
+            });
         });
+
+
 
         return $render;
     }

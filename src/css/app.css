@@ -78,3 +78,42 @@ login-register-border{
   border:solid lightgray 1px;
   border-radius: 30px;
 }
+
+.toolbar-border:before {
+  content: '';
+  position: absolute;
+  background-color: darkgray;
+  display: block;
+  z-index: 15;
+  top: 0;
+  right: auto;
+  bottom: auto;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  transform-origin: 50% 0%;
+  transform: scaleY(calc(1 / var(--f7-device-pixel-ratio)));
+}
+
+.navbar-border:after {
+  content: '';
+  position: absolute;
+  background-color: darkgray;
+  display: block;
+  z-index: 15;
+  top: 55px;
+  right: auto;
+  bottom: auto;
+  left: 0;
+  height: 1px;
+  width: 100%;
+  transform-origin: 50% 0%;
+  transform: scaleY(calc(1 / var(--f7-device-pixel-ratio)));
+}
+
+.demo-icon {
+  background: #EE350F;
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+}

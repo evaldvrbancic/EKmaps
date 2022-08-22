@@ -49,30 +49,10 @@ var app = new Framework7({
         // Init cordova APIs (see cordova-app.js)
         cordovaApp.init(f7);
       }
-      app.request.get('https://reqbin.com/echo/get/json')
-        .then(function (res) {
-          console.log(res);
-        })
-        .catch(function (err) {
-          console.log(err.xhr)
-          console.log(err.status)
-          console.log(err.message)
-        })
     },
   },
 });
 
-function testGet() {
-  app.get('https://reqbin.com/echo/get/json')
-    .then(function (res) {
-      console.log(res);
-    })
-    .catch(function (err) {
-      console.log(err.xhr)
-      console.log(err.status)
-      console.log(err.message)
-    })
-}
-function myFunction(){
+function myFunction() {
   console.log1;
-  }
+}
